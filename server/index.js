@@ -80,6 +80,8 @@ app.get("/api/movie", (req, res, next) => {
   res.status(200).send({ new: "as" });
 });
 
+//----------------------Port Info------------------------
+
 const port = 3002;
 app.listen(port, () => {
   console.log(`Server is listening ${port}`);
