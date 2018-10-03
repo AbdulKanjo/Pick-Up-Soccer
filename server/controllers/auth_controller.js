@@ -9,7 +9,7 @@ const logout = (req, res) => {
 const getUser = (req, res) => {
   const db = req.app.get("db");
   if (!req.user) {
-    res.status(500).send({ message: "Not Logged In" });
+    res.status(401).send({ message: "Not Logged In" });
   } else {
     db.get_user_by_authid(req.user.auth_id).then(results => {
       // console.log("resssssssss", results);

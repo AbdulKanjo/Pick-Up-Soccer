@@ -36,12 +36,12 @@ app.use(passport.session());
 passport.use(strategy);
 
 passport.serializeUser((user, done) => {
-  // console.log("first", user);
+  console.log("first", user.id);
   const db = app.get("db");
   db.get_user_by_authid(user.id)
     .then(response => {
       if (!response[0]) {
-        // console.log("loooooog", user);
+        console.log("response", response);
         db.add_user_by_authid([
           user.displayName,
           user.id,
