@@ -1,8 +1,18 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import Axios from "axios";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: ""
+    };
+  }
+  componentDidMount() {
+    Axios.get("/api/movie").then(res => console.log(res.data));
+  }
   render() {
     return (
       <div className="App">
