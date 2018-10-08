@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import Axios from "axios";
+import Games from "../Games/Games";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      games: "",
+      games: [],
       user: "",
       title: "",
       duration: "",
@@ -17,7 +18,6 @@ class Dashboard extends Component {
     this.getUser();
     this.getGames();
   }
-
   getGames = () => {
     Axios.get("/api/games/area")
       .then(res => this.setState({ games: res.data }))
@@ -38,7 +38,7 @@ class Dashboard extends Component {
       date: this.state.date,
       duration: this.state.duration
     })
-      .then(() => alert("created"))
+      .then(this.getGames())
       .catch(e => console.log(e));
   }
 
@@ -59,8 +59,10 @@ class Dashboard extends Component {
   };
 
   render() {
-    console.log(this.state);
-
+    console.log(this.state.games);
+    let mappedGames = this.state.games.map((e, i) => {
+      return <div key={i}>{e.game_title}</div>;
+    });
     const { name, picture } = this.state.user;
     return (
       <div>
@@ -85,6 +87,7 @@ class Dashboard extends Component {
               onChange={e => this.handleDate(e.target.value)}
             />
             <button onClick={() => this.createNewGame()}>create game</button>
+            <div>{mappedGames}</div>
           </div>
         ) : (
           "please log in"
