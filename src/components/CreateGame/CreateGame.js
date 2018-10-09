@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import Games from "../Games/Games";
-
-class Dashboard extends Component {
+import Friends from "../Friends/Friends";
+class CreateGame extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,6 +31,7 @@ class Dashboard extends Component {
   };
 
   createNewGame() {
+    this.getGames();
     Axios.post("/api/createnewgame", {
       game_title: this.state.title,
       game_creator: this.state.user.auth_id,
@@ -38,6 +39,7 @@ class Dashboard extends Component {
       date: this.state.date,
       duration: this.state.duration
     })
+
       .then(this.getGames())
       .catch(e => console.log(e));
   }
@@ -88,6 +90,7 @@ class Dashboard extends Component {
             />
             <button onClick={() => this.createNewGame()}>create game</button>
             <div>{mappedGames}</div>
+            <Friends />
           </div>
         ) : (
           "please log in"
@@ -97,4 +100,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default CreateGame;
