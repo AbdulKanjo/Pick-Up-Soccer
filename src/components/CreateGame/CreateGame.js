@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Axios from "axios";
-import Games from "../Games/Games";
+
 import Friends from "../Friends/Friends";
+
 class CreateGame extends Component {
   constructor(props) {
     super(props);
@@ -14,10 +15,12 @@ class CreateGame extends Component {
       time: ""
     };
   }
+
   componentDidMount() {
     this.getUser();
     this.getGames();
   }
+
   getGames = () => {
     Axios.get("/api/games/area")
       .then(res => this.setState({ games: res.data }))
@@ -30,7 +33,7 @@ class CreateGame extends Component {
       .catch(e => console.log("not logged in"));
   };
 
-  createNewGame() {
+  createNewGame = () => {
     this.getGames();
     Axios.post("/api/createnewgame", {
       game_title: this.state.title,
@@ -41,8 +44,13 @@ class CreateGame extends Component {
     })
 
       .then(this.getGames())
+      .then(this.resetInput())
       .catch(e => console.log(e));
-  }
+  };
+
+  resetInput = () => {
+    this.setState({ title: "", time: "", date: "", duration: "" });
+  };
 
   handleTime = e => {
     this.setState({ time: e });
@@ -61,7 +69,6 @@ class CreateGame extends Component {
   };
 
   render() {
-    console.log(this.state.games);
     let mappedGames = this.state.games.map((e, i) => {
       return <div key={i}>{e.game_title}</div>;
     });
@@ -71,20 +78,24 @@ class CreateGame extends Component {
         {name ? (
           <div>
             <div>{name}</div>
-            <img width="40px" src={picture} />
+            <img alt="" width="40px" src={picture} />
             <input
+              value={this.state.title}
               placeholder="title"
               onChange={e => this.handleTitle(e.target.value)}
             />
             <input
+              value={this.state.time}
               placeholder="time"
               onChange={e => this.handleTime(e.target.value)}
             />
             <input
+              value={this.state.duration}
               placeholder="duration"
               onChange={e => this.handleDuration(e.target.value)}
             />
             <input
+              value={this.state.date}
               placeholder="date"
               onChange={e => this.handleDate(e.target.value)}
             />

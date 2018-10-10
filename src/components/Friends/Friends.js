@@ -25,7 +25,7 @@ class Friends extends Component {
 
   render() {
     // console.log(this.state.user.auth_id);
-    console.log(this.state.friends);
+    // console.log(this.state.friends);
 
     return <div>hello</div>;
   }
