@@ -25,9 +25,18 @@ class Friends extends Component {
 
   render() {
     // console.log(this.state.user.auth_id);
-    // console.log(this.state.friends);
+    console.log(this.state.friends);
+    let mappedFriends = this.state.friends.map((e, i) => {
+      return (
+        <div key={i}>
+          <div>{e.name}</div>
+          <img width="40px" src={e.picture} />
+          <button>add</button>
+        </div>
+      );
+    });
 
-    return <div>hello</div>;
+    return <div>{mappedFriends}</div>;
   }
 }
 

@@ -41,25 +41,28 @@ app.use(passport.session());
 passport.use(strategy);
 
 passport.serializeUser((user, done) => {
-  console.log("first", user.id);
+  console.log("first", user);
   const db = app.get("db");
   db.get_user_by_authid(user.id)
     .then(response => {
       if (!response[0]) {
         console.log("response", response);
-        db.add_user_by_authid([
-          user.displayName,
-          user.id,
-          `https://graph.facebook.com/${user.id.substring(
-            9
-          )}/picture?width=9999`
-        ])
-          .then(res => {
-            session.auth_id = res[0].auth_id;
-            // console.log("new", session.auth_id);
-            done(null, res[0]);
-          })
-          .catch(err => done(err, null));
+        user.id.includes("facebook")
+          ? db.add_user_by_authid([
+              user.displayName,
+              user.id,
+              `https://graph.facebook.com/${user.id.substring(
+                9
+              )}/picture?width=9999`
+            ])
+          : db
+              .add_user_by_authid([user.displayName, user.id, user.picture])
+              .then(res => {
+                session.auth_id = res[0].auth_id;
+                // console.log("new", session.auth_id);
+                done(null, res[0]);
+              })
+              .catch(err => done(err, null));
       } else {
         session.auth_id = response[0].auth_id;
         return done(null, response[0]);
