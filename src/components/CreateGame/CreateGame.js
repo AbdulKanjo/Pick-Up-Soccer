@@ -22,9 +22,11 @@ class CreateGame extends Component {
   }
 
   getGames = () => {
+    console.log("hit");
     Axios.get("/api/games/area")
       .then(res => this.setState({ games: res.data }))
-      .catch(e => console.log("error with games"));
+      .catch(e => console.log(e));
+    console.log(this.state.games);
   };
 
   getUser = () => {
@@ -34,7 +36,6 @@ class CreateGame extends Component {
   };
 
   createNewGame = () => {
-    this.getGames();
     Axios.post("/api/createnewgame", {
       game_title: this.state.title,
       game_creator: this.state.user.auth_id,
@@ -42,7 +43,6 @@ class CreateGame extends Component {
       date: this.state.date,
       duration: this.state.duration
     })
-
       .then(this.getGames())
       .then(this.resetInput())
       .catch(e => console.log(e));
