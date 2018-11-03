@@ -23,15 +23,24 @@ class Friends extends Component {
       .then(res => this.setState({ friends: res.data }));
   }
 
+  addFriend(friend_auth_id) {
+    axios
+      .post("/api/newfriends", {
+        auth_id: this.state.user.auth_id,
+        friend_auth_id: friend_auth_id
+      })
+      .catch(e => console.log(e));
+  }
+
   render() {
     // console.log(this.state.user.auth_id);
-    console.log(this.state.friends);
+    console.log("current user", this.state.user.auth_id);
     let mappedFriends = this.state.friends.map((e, i) => {
       return (
         <div key={i}>
           <div>{e.name}</div>
           <img width="40px" src={e.picture} />
-          <button>add</button>
+          <button onClick={() => this.addFriend(e.auth_id)}>add</button>
         </div>
       );
     });

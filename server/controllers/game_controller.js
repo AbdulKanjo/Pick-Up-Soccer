@@ -14,16 +14,7 @@ const getGames = (req, res, next) => {
     .catch(e => res.status(500).send("something is wrong"));
 };
 
-const getFriends = (req, res, next) => {
-  const db = req.app.get("db");
-  const { auth_id } = req.params;
-  db.get_friends_by_auth([auth_id])
-    .then(friends => res.status(200).send(friends))
-    .catch(e => res.status(500).send("something is wrong"));
-};
-
 module.exports = {
   newGame,
-  getGames,
-  getFriends
+  getGames
 };

@@ -6,11 +6,8 @@ const passport = require("passport");
 const strategy = require("./strategy");
 const massive = require("massive");
 const session = require("express-session");
-const {
-  newGame,
-  getGames,
-  getFriends
-} = require("./controllers/game_controller");
+const { newGame, getGames } = require("./controllers/game_controller");
+const { getFriends, newFriend } = require("./controllers/friends_controller");
 const app = express();
 const { logout, login, getUser } = require("./controllers/auth_controller");
 app.use(bodyParser.json());
@@ -96,6 +93,7 @@ app.post("/api/createnewgame", newGame);
 //----------------------Friends Endpoint-----------------
 
 app.get("/api/frindslist/:auth_id", getFriends);
+app.post("/api/newfriends", newFriend);
 
 //----------------------Port Info------------------------
 

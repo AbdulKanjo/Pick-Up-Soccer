@@ -24,9 +24,11 @@ class CreateGame extends Component {
   getGames = () => {
     console.log("hit");
     Axios.get("/api/games/area")
-      .then(res => this.setState({ games: res.data }))
+      .then(res => {
+        this.setState({ games: res.data });
+        console.log(res.data);
+      })
       .catch(e => console.log(e));
-    console.log(this.state.games);
   };
 
   getUser = () => {
@@ -43,8 +45,8 @@ class CreateGame extends Component {
       date: this.state.date,
       duration: this.state.duration
     })
-      .then(this.getGames())
       .then(this.resetInput())
+      .then(this.getGames())
       .catch(e => console.log(e));
   };
 
@@ -78,7 +80,7 @@ class CreateGame extends Component {
         {name ? (
           <div>
             <div>{name}</div>
-            <img alt="" width="40px" src={picture} />
+            <img alt={name} width="40px" src={picture} />
             <input
               value={this.state.title}
               placeholder="title"
