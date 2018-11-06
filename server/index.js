@@ -8,8 +8,9 @@ const massive = require("massive");
 const session = require("express-session");
 const { newGame, getGames } = require("./controllers/game_controller");
 const { getFriends, newFriend } = require("./controllers/friends_controller");
-const app = express();
 const { logout, login, getUser } = require("./controllers/auth_controller");
+const { getUserInfo } = require("./controllers/user_controller");
+const app = express();
 app.use(bodyParser.json());
 
 massive(process.env.CONNECTION_STRING)
@@ -94,6 +95,10 @@ app.post("/api/createnewgame", newGame);
 
 app.get("/api/frindslist/:auth_id", getFriends);
 app.post("/api/newfriends", newFriend);
+
+//----------------------userInfo Endpoints---------------
+
+app.get("/api/userinfo/:auth_id", getUserInfo);
 
 //----------------------Port Info------------------------
 
