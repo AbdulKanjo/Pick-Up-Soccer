@@ -7,6 +7,22 @@ const getUserInfo = (req, res, next) => {
     .catch(e => res.status(500).send(e));
 };
 
+const getAllUsers = (req, res, next) => {
+  const db = req.app.get("db");
+  db.get_all_users()
+    .then(users => res.status(200).send(users))
+    .catch(e => res.status(500).send(e));
+};
+
+const numOfUsers = (req, res, next) => {
+  const db = req.app.get("db");
+  db.get_num_of_users()
+    .then(numberOfUsers => res.status(200).send(numberOfUsers))
+    .catch(e => console.log(e));
+};
+
 module.exports = {
-  getUserInfo
+  getUserInfo,
+  getAllUsers,
+  numOfUsers
 };

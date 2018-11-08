@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 class Friends extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +40,7 @@ class Friends extends Component {
     let mappedFriends = this.state.friends.map((e, i) => {
       return (
         <div key={i}>
-          <div>{e.name}</div>
+          s<Link to={`/profile/${e.auth_id}`}>{e.name}</Link>
           <img width="40px" src={e.picture} />
           <button onClick={() => this.addFriend(e.auth_id)}>add</button>
         </div>

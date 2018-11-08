@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Axios from "axios";
 
 import Friends from "../Friends/Friends";
+import users from "../Users/Users";
 
 class CreateGame extends Component {
   constructor(props) {

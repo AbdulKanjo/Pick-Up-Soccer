@@ -9,7 +9,11 @@ const session = require("express-session");
 const { newGame, getGames } = require("./controllers/game_controller");
 const { getFriends, newFriend } = require("./controllers/friends_controller");
 const { logout, login, getUser } = require("./controllers/auth_controller");
-const { getUserInfo } = require("./controllers/user_controller");
+const {
+  getUserInfo,
+  getAllUsers,
+  numOfUsers
+} = require("./controllers/user_controller");
 const app = express();
 app.use(bodyParser.json());
 
@@ -96,9 +100,11 @@ app.post("/api/createnewgame", newGame);
 app.get("/api/frindslist/:auth_id", getFriends);
 app.post("/api/newfriends", newFriend);
 
-//----------------------userInfo Endpoints---------------
+//----------------------user Endpoints---------------
 
 app.get("/api/userinfo/:auth_id", getUserInfo);
+app.get("/api/allusers", getAllUsers);
+app.get("/api/numberofusers", numOfUsers);
 
 //----------------------Port Info------------------------
 
