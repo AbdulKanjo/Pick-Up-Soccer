@@ -21,8 +21,18 @@ const numOfUsers = (req, res, next) => {
     .catch(e => console.log(e));
 };
 
+const getNumOfFriends = (req, res, next) => {
+  const db = req.app.get("db");
+  const { auth_id } = req.params;
+  console.log("right here", req.params);
+  db.get_num_of_friends([auth_id])
+    .then(numOfFriends => res.status(200).send(numOfFriends))
+    .catch(e => console.log(e));
+};
+
 module.exports = {
   getUserInfo,
   getAllUsers,
-  numOfUsers
+  numOfUsers,
+  getNumOfFriends
 };

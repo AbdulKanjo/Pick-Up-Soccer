@@ -12,7 +12,8 @@ const { logout, login, getUser } = require("./controllers/auth_controller");
 const {
   getUserInfo,
   getAllUsers,
-  numOfUsers
+  numOfUsers,
+  getNumOfFriends
 } = require("./controllers/user_controller");
 const app = express();
 app.use(bodyParser.json());
@@ -103,8 +104,9 @@ app.post("/api/newfriends", newFriend);
 //----------------------user Endpoints---------------
 
 app.get("/api/userinfo/:auth_id", getUserInfo);
+app.get("/api/numoffriends/:auth_id", getNumOfFriends);
 app.get("/api/allusers", getAllUsers);
-app.get("/api/numberofusers", numOfUsers);
+app.get("/api/numberofusers", numOfUsers); //not used yet
 
 //----------------------Port Info------------------------
 
